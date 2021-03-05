@@ -2,9 +2,9 @@
 
 namespace Narcisonunez\LaravelScripts;
 
+use Narcisonunez\LaravelScripts\Commands\LaravelScriptsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Narcisonunez\LaravelScripts\Commands\LaravelScriptsCommand;
 
 class LaravelScriptsServiceProvider extends PackageServiceProvider
 {

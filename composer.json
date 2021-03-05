@@ -1,23 +1,23 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "narcisonunez/laravel-scripts",
+    "description": "Create scripts",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "narcisonunez",
+        "laravel-scripts"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/narcisonunez/laravel-scripts",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Narciso Nunez",
+            "email": "narciso.arias21@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.0|^7.4",
         "spatie/laravel-package-tools": "^1.1",
-        "illuminate/contracts": "^8.0"
+        "illuminate/contracts": "^8.0|^7.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -27,13 +27,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Narcisonunez\\LaravelScripts\\": "src",
+            "Narcisonunez\\LaravelScripts\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Narcisonunez\\LaravelScripts\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,10 +47,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Narcisonunez\\LaravelScripts\\LaravelScriptsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "LaravelScripts": "Narcisonunez\\LaravelScripts\\LaravelScriptsFacade"
             }
         }
     },

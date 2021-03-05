@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Skeleton\Commands;
+namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelScriptsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-scripts';
 
     public $description = 'My command';
 

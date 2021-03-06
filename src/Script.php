@@ -82,7 +82,7 @@ abstract class Script
             $this->scriptRun->save();
 
             $this->success($this->scriptRun->fresh());
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->setScriptRunAttributes($e);
             $this->scriptRun->save();
             $this->fails($this->scriptRun->fresh());

@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Scripts;
 
-
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use Narcisonunez\LaravelScripts\Script;
 

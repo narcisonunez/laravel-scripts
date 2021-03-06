@@ -7,7 +7,7 @@ use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use Narcisonunez\LaravelScripts\Scripts\VerifyScriptRunScript;
 use Narcisonunez\LaravelScripts\Tests\TestCase;
 
-class VerifyScriptRunScriptTest  extends TestCase
+class VerifyScriptRunScriptTest extends TestCase
 {
     /** @test */
     public function script_run_is_saved_when_an_script_runs()

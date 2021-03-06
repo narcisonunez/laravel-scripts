@@ -14,7 +14,6 @@ class CreateScriptRunsTable extends Migration
             $table->string('description')->nullable();
             $table->string('status')->default('succeeded'); // succeeded, failed
             $table->text('message')->nullable();
-            $table->string('server_ip')->nullable();
             $table->string('runner_ip')->nullable();
             $table->text('executed_queries')->nullable();
             $table->timestamps();

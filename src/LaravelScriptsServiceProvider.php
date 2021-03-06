@@ -19,7 +19,7 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->name('laravel-scripts')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel_scripts_table')
+            ->hasMigration('create_script_runs_table')
             ->hasCommand(LaravelScriptsCommand::class);
     }
 }

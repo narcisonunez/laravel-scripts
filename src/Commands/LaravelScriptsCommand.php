@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class LaravelScriptsCommand extends Command
 {
-    public $signature = 'laravel-scripts';
+    public $signature = 'scripts';
 
     public $description = 'My command';
 

@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateScriptRunsTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('script_runs', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('script_name');
+            $table->string('description')->nullable();
+            $table->string('status')->default('succeeded'); // succeeded, failed
+            $table->text('message')->nullable();
+            $table->string('server_ip')->nullable();
+            $table->string('runner_ip')->nullable();
+            $table->text('executed_queries')->nullable();
+            $table->timestamps();
+        });
+    }
+}

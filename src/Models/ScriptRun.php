@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class ScriptRun extends Model
@@ -13,7 +12,7 @@ class ScriptRun extends Model
     protected static function boot()
     {
         parent::boot();
-        static::created(function(ScriptRun $scriptRun){
+        static::created(function (ScriptRun $scriptRun) {
             $scriptRun->runner_ip = request()->ip();
             $scriptRun->save();
         });
@@ -26,6 +25,6 @@ class ScriptRun extends Model
 
     public function failed(): bool
     {
-        return !$this->succeeded();
+        return ! $this->succeeded();
     }
 }

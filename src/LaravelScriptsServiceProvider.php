@@ -4,6 +4,10 @@ namespace Narcisonunez\LaravelScripts;
 
 use Narcisonunez\LaravelScripts\Commands\ScriptHistoryCommand;
 use Narcisonunez\LaravelScripts\Commands\ScriptMakeCommand;
+use Narcisonunez\LaravelScripts\Commands\ScriptRunCommand;
+use Narcisonunez\LaravelScripts\Models\ScriptRun;
+use Narcisonunez\LaravelScripts\Scripts\AnotherScript;
+use Narcisonunez\LaravelScripts\Scripts\VerifyScriptRunScript;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -23,7 +27,8 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->hasMigration('create_script_runs_table')
             ->hasCommands(
                 ScriptMakeCommand::class,
-                ScriptHistoryCommand::class
+                ScriptHistoryCommand::class,
+                ScriptRunCommand::class
             );
     }
 }

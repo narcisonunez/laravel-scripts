@@ -12,7 +12,8 @@ class ScriptHistoryCommandTest extends TestCase
     private function getTableRows(int $times = 1)
     {
         $scriptRuns = ScriptRunFactory::times($times)->create();
-        return $scriptRuns->sortByDesc('id')->map(function($scriptRun) {
+
+        return $scriptRuns->sortByDesc('id')->map(function ($scriptRun) {
             return [
                 $scriptRun->id,
                 $scriptRun->script_name,
@@ -42,7 +43,7 @@ class ScriptHistoryCommandTest extends TestCase
         $rows = $this->getTableRows(10)->take(5)->toArray();
 
         $this->artisan('scripts:history', [
-            '--limit' => 5
+            '--limit' => 5,
         ])
             ->expectsTable(
                 ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
@@ -56,7 +57,7 @@ class ScriptHistoryCommandTest extends TestCase
     {
         $this->getTableRows(10);
         $rows = ScriptRunFactory::times(1)->create([
-            'script_name' => 'Narcisonunez\LaravelScripts\Scripts\AnotherScript'
+            'script_name' => 'Narcisonunez\LaravelScripts\Scripts\AnotherScript',
         ])->map(function (ScriptRun $scriptRun) {
             return [
                 $scriptRun->id,
@@ -68,7 +69,7 @@ class ScriptHistoryCommandTest extends TestCase
         })->toArray();
 
         $this->artisan('scripts:history', [
-            '--script' => 'AnotherScript'
+            '--script' => 'AnotherScript',
         ])
             ->expectsTable(
                 ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
@@ -83,7 +84,7 @@ class ScriptHistoryCommandTest extends TestCase
         $this->getTableRows(10);
 
         $this->artisan('scripts:history', [
-            '--script' => 'ScriptNameThatDoesntExist'
+            '--script' => 'ScriptNameThatDoesntExist',
         ])
             ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\ScriptNameThatDoesntExist")
             ->assertExitCode(0);

@@ -16,18 +16,18 @@ abstract class Script
     /**
      * @var int
      */
-    protected int $allowedRuns;
+    public int $allowedRuns;
 
     /**
      * @var bool
      */
-    protected bool $runAsTransaction = false;
+    public bool $runAsTransaction = false;
 
     /**
      * Script Description
      * @var string
      */
-    protected string $description = '';
+    public string $description = '';
 
     /**
      * The method will be call when the script is run
@@ -40,7 +40,7 @@ abstract class Script
      * @param ScriptRun $scriptRun
      * @return void
      */
-    protected function success(ScriptRun $scriptRun) : void
+    public function success(ScriptRun $scriptRun) : void
     {
         //
     }
@@ -50,7 +50,7 @@ abstract class Script
      * @param ScriptRun $scriptRun
      * @return void
      */
-    protected function fails(ScriptRun $scriptRun) : void
+    public function fails(ScriptRun $scriptRun) : void
     {
         //
     }
@@ -66,8 +66,13 @@ abstract class Script
      */
     public function execute()
     {
-        if ($this->allowedRuns != config('scripts.unlimited_runs') && ScriptRun::where(get_class($this)->count() >= $this->allowedRuns)) {
-            throw new Exception('This script reached the maximum allowed runs.');
+        if ($this->allowedRuns != config('scripts.unlimited_runs')
+            && ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns) {
+            $exception = new Exception('This script reached the maximum allowed runs.');
+            $this->setScriptRunAttributes($exception);
+            $this->scriptRun->save();
+            $this->fails($this->scriptRun);
+            throw $exception;
         }
 
         DB::enableQueryLog();

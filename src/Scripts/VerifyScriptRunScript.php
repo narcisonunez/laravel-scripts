@@ -13,7 +13,7 @@ class VerifyScriptRunScript extends Script
      * Script Description
      * @var string
      */
-    protected string $description = 'Get all the script runs';
+    public string $description = 'Get all the script runs';
 
     /**
      * The method will be call when the script is run

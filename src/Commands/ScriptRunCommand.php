@@ -3,9 +3,6 @@
 namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\Command;
-use Narcisonunez\LaravelScripts\Models\ScriptRun;
-use Symfony\Component\Console\Input\InputOption;
-use function GuzzleHttp\Psr7\try_fopen;
 
 class ScriptRunCommand extends Command
 {
@@ -15,10 +12,11 @@ class ScriptRunCommand extends Command
 
     public function handle()
     {
-        $scriptName  = $this->argument('name');
+        $scriptName = $this->argument('name');
 
-        if ($scriptName && !class_exists(config('scripts.base_path') . "\\$scriptName")) {
+        if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
+
             return;
         }
 
@@ -31,6 +29,5 @@ class ScriptRunCommand extends Command
             $this->newLine(2);
             $this->error('Error: ' . $exception->getMessage());
         }
-
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Narcisonunez\LaravelScripts;
 
-use Narcisonunez\LaravelScripts\Commands\LaravelScriptsCommand;
+use Narcisonunez\LaravelScripts\Commands\ScriptMakeCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -20,6 +20,6 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_script_runs_table')
-            ->hasCommand(LaravelScriptsCommand::class);
+            ->hasCommand(ScriptMakeCommand::class);
     }
 }

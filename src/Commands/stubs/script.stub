@@ -1,0 +1,23 @@
+<?php
+
+namespace {{ namespace }};
+
+use Narcisonunez\LaravelScripts\Script;
+
+class {{ class }} extends Script
+{
+    /**
+         * Script Description
+         * @var string
+         */
+        public string $description = '';
+
+        /**
+         * The method will be call when the script is run
+         * @return void
+         */
+        protected function run() : void
+        {
+            //
+        }
+}

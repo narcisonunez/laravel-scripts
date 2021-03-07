@@ -15,6 +15,8 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Narcisonunez\\LaravelScripts\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        config()->set('scripts.base_path', 'Narcisonunez\\LaravelScripts\\Scripts');
     }
 
     protected function getPackageProviders($app)

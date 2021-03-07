@@ -42,8 +42,10 @@ class ScriptRun extends Model
     {
         if ($status) {
             $this->status = 'succeeded';
+
             return true;
         }
+
         return $this->status == 'succeeded';
     }
 
@@ -55,6 +57,7 @@ class ScriptRun extends Model
     {
         if ($status) {
             $this->status = 'failed';
+
             return true;
         }
 

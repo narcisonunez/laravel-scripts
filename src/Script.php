@@ -72,6 +72,7 @@ abstract class Script
             $this->setScriptRunAttributes($exception);
             $this->scriptRun->save();
             $this->fails($this->scriptRun);
+
             throw $exception;
         }
 

@@ -14,11 +14,12 @@ class ScriptHistoryCommand extends Command
 
     public function handle()
     {
-        $scriptName  = $this->option('script');
-        $limit  = $this->option('limit') ?: 10;
+        $scriptName = $this->option('script');
+        $limit = $this->option('limit') ?: 10;
 
-        if ($scriptName && !class_exists(config('scripts.base_path') . "\\$scriptName")) {
+        if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
+
             return;
         }
 

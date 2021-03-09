@@ -18,6 +18,10 @@ class ScriptMakeCommand extends GeneratorCommand
      */
     protected $type = 'Script';
 
+    /**
+     * @return bool|void|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function handle()
     {
         parent::handle();

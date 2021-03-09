@@ -23,6 +23,8 @@ class TestCase extends Orchestra
         if (Storage::exists(app_path('Scripts'))) {
             File::delete(File::allFiles(app_path('Scripts')));
         }
+
+        Route::laravelScripts('scripts');
     }
 
     public function tearDown(): void

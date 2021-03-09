@@ -26,7 +26,7 @@ class TestCase extends Orchestra
 
     public function tearDown(): void
     {
-        if (Storage::exists(app_path('Scripts'))){
+        if (Storage::exists(app_path('Scripts'))) {
             File::delete(File::allFiles(app_path('Scripts')));
         }
     }

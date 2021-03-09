@@ -23,6 +23,7 @@ class ScriptRunsController
             $scriptRunsQuery->where('script_name', 'LIKE', "%$name%");
         }
         $scriptRuns = $scriptRunsQuery->paginate(10);
+
         return view('scripts::history', compact('scriptRuns', 'scripts'));
     }
 }

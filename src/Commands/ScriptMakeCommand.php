@@ -18,13 +18,11 @@ class ScriptMakeCommand extends GeneratorCommand
      */
     protected $type = 'Script';
 
-    public function handle() : bool
+    public function handle()
     {
         if (parent::handle() === false && ! $this->option('force')) {
-            return false;
+            return;
         }
-
-        return true;
     }
 
     protected function getStub()

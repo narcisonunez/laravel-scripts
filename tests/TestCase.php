@@ -4,6 +4,7 @@ namespace Narcisonunez\LaravelScripts\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Narcisonunez\LaravelScripts\LaravelScriptsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -18,7 +19,9 @@ class TestCase extends Orchestra
         );
 
         config()->set('scripts.base_path', 'Narcisonunez\\LaravelScripts\\Scripts');
-        File::delete(File::allFiles(app_path('Scripts')));
+        if (Storage::exists(app_path('Scripts'))){
+            File::delete(File::allFiles(app_path('Scripts')));
+        }
     }
 
     protected function getPackageProviders($app)

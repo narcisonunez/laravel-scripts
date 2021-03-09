@@ -3,10 +3,9 @@
 
 namespace Narcisonunez\LaravelScripts\Tests\Models;
 
-
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
-use Narcisonunez\LaravelScripts\Tests\TestCase;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
+use Narcisonunez\LaravelScripts\Tests\TestCase;
 
 class ScriptRunTest extends TestCase
 {

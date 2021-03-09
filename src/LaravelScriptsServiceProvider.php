@@ -2,11 +2,9 @@
 
 namespace Narcisonunez\LaravelScripts;
 
-use Illuminate\Support\Facades\Route;
 use Narcisonunez\LaravelScripts\Commands\ScriptHistoryCommand;
 use Narcisonunez\LaravelScripts\Commands\ScriptMakeCommand;
 use Narcisonunez\LaravelScripts\Commands\ScriptRunCommand;
-use Narcisonunez\LaravelScripts\Http\Controllers\ScriptRunsController;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

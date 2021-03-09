@@ -95,6 +95,7 @@ abstract class Script
 
             if ($this->runAsTransaction) {
                 DB::rollBack();
+
                 return;
             }
         }

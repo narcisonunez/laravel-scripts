@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Tests;
 
-
 use Illuminate\Support\Facades\DB;
 use Narcisonunez\LaravelScripts\Scripts\VerifyScriptRunScript;
 

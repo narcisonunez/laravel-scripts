@@ -60,7 +60,7 @@ class ScriptHistoryCommandTest extends TestCase
         config()->set('scripts.base_path', 'App\\Scripts');
         $this->artisan('scripts:make', [
             'name' => 'AnotherScript',
-            '--force'
+            '--force',
         ]);
 
         $files = ['AnotherScript'];
@@ -73,7 +73,8 @@ class ScriptHistoryCommandTest extends TestCase
             ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\BadNameScript")
             ->expectsChoice(
                 'Pick one of the following commands. (Cmd + C to exit)',
-                $files, [$files[0]]
+                $files,
+                [$files[0]]
             )
             ->expectsTable(
                 ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
@@ -83,8 +84,8 @@ class ScriptHistoryCommandTest extends TestCase
                         $scriptRun->script_name,
                         $scriptRun->status,
                         $scriptRun->message,
-                        $scriptRun->runner_ip
-                    ]
+                        $scriptRun->runner_ip,
+                    ],
                 ]
             )
             ->assertExitCode(0);

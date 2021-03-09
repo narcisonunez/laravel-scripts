@@ -4,7 +4,6 @@ namespace Narcisonunez\LaravelScripts\Tests\Commands;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
@@ -95,7 +94,7 @@ class ScriptHistoryCommandTest extends TestCase
     /** @test */
     public function it_should_print_not_found_class_error_for_unknown_scripts()
     {
-        if (File::isDirectory(app_path('Scripts'))){
+        if (File::isDirectory(app_path('Scripts'))) {
             File::delete(app_path('Scripts'));
         }
         config()->set('scripts.base_path', 'App\\Scripts');

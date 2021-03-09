@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use PHPUnit\Util\Filesystem;
+use ReflectionClass;
 use Symfony\Component\Console\Input\InputOption;
 
 class ScriptHistoryCommand extends Command
@@ -23,7 +24,8 @@ class ScriptHistoryCommand extends Command
 
         if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
-            $scriptName = $this->showScriptOptions();
+            $options = $this->showScriptOptions();
+            $scriptName = is_array($options) ? $options[0] : $options;
         }
 
         $historyQuery = ScriptRun::query()

@@ -3,6 +3,8 @@
 namespace Narcisonunez\LaravelScripts\Tests\Commands;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use Narcisonunez\LaravelScripts\Tests\TestCase;
@@ -81,12 +83,34 @@ class ScriptHistoryCommandTest extends TestCase
     /** @test */
     public function it_should_print_not_found_class_error_for_unknown_scripts()
     {
-        $this->getTableRows(10);
+        $rows = ScriptRunFactory::times(1)->create([
+            'script_name' => app_path('Scripts') . '\\VerifyUsersScript',
+        ])->map(function (ScriptRun $scriptRun) {
+            return [
+                $scriptRun->id,
+                $scriptRun->script_name,
+                $scriptRun->status,
+                $scriptRun->message ?: '',
+                $scriptRun->runner_ip ?: '',
+            ];
+        })->toArray();
+        $files = collect(File::allFiles(app_path('Scripts')))->map(function($file){
+            return [
+                'filename' => Str::replaceFirst('.php', '',  $file->getFilename())
+            ];
+        })->values()->flatten()->toArray();
 
         $this->artisan('scripts:history', [
             '--script' => 'ScriptNameThatDoesntExist',
         ])
             ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\ScriptNameThatDoesntExist")
-            ->assertExitCode(0);
+            ->expectsChoice(
+                'Pick one of the following commands. (Cmd + C to exit)',
+                $files, [$files[0]]
+            )
+            ->expectsTable(
+                ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
+                $rows
+            )->assertExitCode(0);
     }
 }

@@ -17,9 +17,13 @@ class ScriptTest extends TestCase
         DB::partialMock()->shouldReceive('disableQueryLog')->once();
         DB::partialMock()->shouldReceive('commit')->once();
 
-        $script = new VerifyScriptRunScript();
-        $script->runAsTransaction = true;
-        $script->execute();
+        $scriptMock = $this->getMockBuilder(VerifyScriptRunScript::class)
+            ->onlyMethods(['success'])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
+        $scriptMock->runAsTransaction = true;
+        $scriptMock->expects($this->once())->method('success');
+        $scriptMock->execute();
     }
 
     /** @test */
@@ -31,8 +35,13 @@ class ScriptTest extends TestCase
         DB::partialMock()->shouldReceive('disableQueryLog')->once();
         DB::partialMock()->shouldReceive('commit')->never();
 
-        $script = new VerifyScriptRunScript();
-        $script->execute();
+        $scriptMock = $this->getMockBuilder(VerifyScriptRunScript::class)
+            ->onlyMethods(['success'])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
+
+        $scriptMock->expects($this->once())->method('success');
+        $scriptMock->execute();
     }
 
     /** @test */
@@ -46,11 +55,12 @@ class ScriptTest extends TestCase
         DB::partialMock()->shouldReceive('commit')->never();
 
         $scriptMock = $this->getMockBuilder(VerifyScriptRunScript::class)
-            ->onlyMethods(['run'])
+            ->onlyMethods(['run', 'fails'])
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
         $scriptMock->runAsTransaction = true;
+        $scriptMock->expects($this->once())->method('fails');
 
         $scriptMock->method('run')->willThrowException(new \Exception());
         $scriptMock->execute();

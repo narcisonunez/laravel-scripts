@@ -19,7 +19,7 @@ class TestCase extends Orchestra
         );
 
         config()->set('scripts.base_path', 'Narcisonunez\\LaravelScripts\\Scripts');
-        if (Storage::exists(app_path('Scripts'))){
+        if (Storage::exists(app_path('Scripts'))) {
             File::delete(File::allFiles(app_path('Scripts')));
         }
     }

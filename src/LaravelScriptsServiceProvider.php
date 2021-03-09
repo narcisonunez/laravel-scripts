@@ -25,7 +25,7 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->hasCommands([
                 ScriptMakeCommand::class,
                 ScriptHistoryCommand::class,
-                ScriptRunCommand::class
+                ScriptRunCommand::class,
             ]);
     }
 }

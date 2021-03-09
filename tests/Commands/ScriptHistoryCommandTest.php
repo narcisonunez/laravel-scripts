@@ -4,7 +4,6 @@ namespace Narcisonunez\LaravelScripts\Tests\Commands;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
@@ -110,9 +109,9 @@ class ScriptHistoryCommandTest extends TestCase
                 $scriptRun->runner_ip ?: '',
             ];
         })->toArray();
-        $files = collect(File::allFiles(app_path('Scripts')))->map(function($file){
+        $files = collect(File::allFiles(app_path('Scripts')))->map(function ($file) {
             return [
-                'filename' => Str::replaceFirst('.php', '',  $file->getFilename())
+                'filename' => Str::replaceFirst('.php', '',  $file->getFilename()),
             ];
         })->values()->flatten()->toArray();
 
@@ -122,7 +121,8 @@ class ScriptHistoryCommandTest extends TestCase
             ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\ScriptNameThatDoesntExist")
             ->expectsChoice(
                 'Pick one of the following commands. (Cmd + C to exit)',
-                $files, [$files[0]]
+                $files,
+                [$files[0]]
             )
             ->expectsTable(
                 ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],

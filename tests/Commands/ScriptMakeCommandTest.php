@@ -2,8 +2,8 @@
 
 namespace Narcisonunez\LaravelScripts\Tests\Commands;
 
-use Narcisonunez\LaravelScripts\Tests\TestCase;
 use Illuminate\Support\Facades\File;
+use Narcisonunez\LaravelScripts\Tests\TestCase;
 
 class ScriptMakeCommandTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ScriptMakeCommandTest extends TestCase
         $this->assertFalse(File::exists($filePath));
         $this->artisan('scripts:make', [
             'name' => 'AnotherScriptName',
-            '--force'
+            '--force',
         ])
             ->expectsOutput('Script created successfully.')
             ->assertExitCode(0);

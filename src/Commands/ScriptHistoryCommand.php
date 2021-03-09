@@ -3,12 +3,9 @@
 namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
-use PHPUnit\Util\Filesystem;
-use ReflectionClass;
 use Symfony\Component\Console\Input\InputOption;
 
 class ScriptHistoryCommand extends Command
@@ -62,13 +59,14 @@ class ScriptHistoryCommand extends Command
      */
     private function showScriptOptions()
     {
-        $files = collect(File::allFiles(app_path('Scripts')))->map(function($file){
+        $files = collect(File::allFiles(app_path('Scripts')))->map(function ($file) {
             return [
-                'filename' => Str::replaceFirst('.php', '',  $file->getFilename())
+                'filename' => Str::replaceFirst('.php', '',  $file->getFilename()),
             ];
         })->values()->flatten()->toArray();
         $this->newLine();
         $this->info('Available commands');
+
         return $this->choice(
             'Pick one of the following commands. (Cmd + C to exit)',
             $files

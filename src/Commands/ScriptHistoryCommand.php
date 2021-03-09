@@ -6,11 +6,10 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
-use Symfony\Component\Console\Input\InputOption;
 
 class ScriptHistoryCommand extends Command
 {
-    public $signature = 'scripts:history {--script=} {--limit=}';
+    public $signature = 'scripts:history {--script= : Show the history for this specific script} {--limit= : Number of rows returned. By default is 10}';
 
     public $description = 'Print the history of scripts runs';
 
@@ -38,19 +37,6 @@ class ScriptHistoryCommand extends Command
             ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
             $history->toArray()
         );
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['script', null, InputOption::VALUE_OPTIONAL, 'Show the history for this specific script'],
-            ['limit', null, InputOption::VALUE_OPTIONAL, 'Number of rows returned. By default is 10.'],
-        ];
     }
 
     /**

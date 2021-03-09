@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ScriptMakeCommand extends GeneratorCommand
 {
-    public $signature = 'scripts:make {name} {--force}';
+    public $signature = 'scripts:make {name : Name of the script} {--force : Replace if the class already exists}';
 
     public $description = 'Create a new Script Class';
 
@@ -20,9 +20,7 @@ class ScriptMakeCommand extends GeneratorCommand
 
     public function handle()
     {
-        if (parent::handle() === false && ! $this->option('force')) {
-            return;
-        }
+        parent::handle();
     }
 
     protected function getStub()
@@ -38,9 +36,7 @@ class ScriptMakeCommand extends GeneratorCommand
      */
     protected function resolveStubPath($stub)
     {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-            ? $customPath
-            : __DIR__.$stub;
+        return __DIR__.$stub;
     }
 
     /**
@@ -52,17 +48,5 @@ class ScriptMakeCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace)
     {
         return config('scripts.base_path');
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', null, InputOption::VALUE_NONE, 'Create the class even if the script already exists'],
-        ];
     }
 }

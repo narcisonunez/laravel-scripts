@@ -58,25 +58,35 @@ class ScriptHistoryCommandTest extends TestCase
     /** @test */
     public function it_should_print_history_limit_of_1_script_runs_for_specific_script()
     {
-        $this->getTableRows(10);
-        $rows = ScriptRunFactory::times(1)->create([
-            'script_name' => 'Narcisonunez\LaravelScripts\Scripts\AnotherScript',
-        ])->map(function (ScriptRun $scriptRun) {
-            return [
-                $scriptRun->id,
-                $scriptRun->script_name,
-                $scriptRun->status,
-                $scriptRun->message ?: '',
-                $scriptRun->runner_ip ?: '',
-            ];
-        })->toArray();
+        config()->set('scripts.base_path', 'App\\Scripts');
+        $this->artisan('scripts:make', [
+            'name' => 'AnotherScript',
+            '--force'
+        ]);
 
+        $files = ['AnotherScript'];
+
+        /** @var ScriptRun $scriptRun */
+        $scriptRun = ScriptRunFactory::new()->create(['script_name' => 'NameSpace\\AnotherScript']);
         $this->artisan('scripts:history', [
-            '--script' => 'AnotherScript',
+            '--script' => 'BadNameScript',
         ])
+            ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\BadNameScript")
+            ->expectsChoice(
+                'Pick one of the following commands. (Cmd + C to exit)',
+                $files, [$files[0]]
+            )
             ->expectsTable(
                 ['ID', 'Script Name', 'Status', 'Message', 'Runner IP'],
-                $rows
+                [
+                    [
+                        $scriptRun->id,
+                        $scriptRun->script_name,
+                        $scriptRun->status,
+                        $scriptRun->message,
+                        $scriptRun->runner_ip
+                    ]
+                ]
             )
             ->assertExitCode(0);
     }

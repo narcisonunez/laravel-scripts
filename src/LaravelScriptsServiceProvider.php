@@ -22,10 +22,10 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_script_runs_table')
-            ->hasCommands(
+            ->hasCommands([
                 ScriptMakeCommand::class,
                 ScriptHistoryCommand::class,
                 ScriptRunCommand::class
-            );
+            ]);
     }
 }

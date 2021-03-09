@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Tests\Http\Controllers;
 
-
 use Narcisonunez\LaravelScripts\Tests\TestCase;
 
 class ScriptRunsController extends TestCase

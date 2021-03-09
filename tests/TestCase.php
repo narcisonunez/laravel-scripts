@@ -4,7 +4,6 @@ namespace Narcisonunez\LaravelScripts\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Narcisonunez\LaravelScripts\LaravelScriptsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;

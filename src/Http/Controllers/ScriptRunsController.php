@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Http\Controllers;
 
-
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;

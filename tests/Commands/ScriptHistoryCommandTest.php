@@ -57,6 +57,7 @@ class ScriptHistoryCommandTest extends TestCase
     /** @test */
     public function it_should_print_history_limit_of_1_script_runs_for_specific_script()
     {
+        File::delete(File::allFiles(app_path('Scripts')));
         config()->set('scripts.base_path', 'App\\Scripts');
         $this->artisan('scripts:make', [
             'name' => 'AnotherScript',

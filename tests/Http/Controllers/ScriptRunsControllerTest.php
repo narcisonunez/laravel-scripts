@@ -11,6 +11,7 @@ use Narcisonunez\LaravelScripts\Tests\TestCase;
 class ScriptRunsControllerTest extends TestCase
 {
     use WithoutMiddleware;
+
     /** @test */
     public function it_should_load_the_history_page()
     {

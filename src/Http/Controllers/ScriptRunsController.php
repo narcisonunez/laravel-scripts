@@ -12,11 +12,15 @@ class ScriptRunsController
 {
     public function __invoke(Request $request)
     {
-        $scripts = collect(File::allFiles(app_path('Scripts')))->map(function ($file) {
-            return [
-                'name' => Str::replaceFirst('.php', '',  $file->getFilename()),
-            ];
-        });
+        $scripts = collect();
+        if (File::isDirectory(app_path('Scripts'))) {
+            $scripts = collect(File::allFiles(app_path('Scripts')))->map(function ($file) {
+                return [
+                    'name' => Str::replaceFirst('.php', '',  $file->getFilename()),
+                ];
+            });
+        }
+
         $scriptRunsQuery = ScriptRun::orderByDesc('id');
         if ($request->has('name')) {
             $name = $request->get('name');

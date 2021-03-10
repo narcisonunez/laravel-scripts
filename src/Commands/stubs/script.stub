@@ -3,21 +3,42 @@
 namespace {{ namespace }};
 
 use Narcisonunez\LaravelScripts\Script;
+use Narcisonunez\LaravelScripts\Models\ScriptRun;
 
 class {{ class }} extends Script
 {
     /**
-         * Script Description
-         * @var string
-         */
-        public string $description = '';
+     * Script Description
+     * @var string
+     */
+    public string $description = ''; // TODO update this line
 
-        /**
-         * The method will be call when the script is run
-         * @return void
-         */
-        protected function run() : void
-        {
-            //
-        }
+    /**
+     * The method will be call when the script is run
+     * @return void
+     */
+    protected function run() : void
+    {
+        //
+    }
+
+    /**
+     * The method will be call when the script is run successfully
+     * @param ScriptRun $scriptRun
+     * @return void
+     */
+    public function success(ScriptRun $scriptRun): void
+    {
+        //
+    }
+
+    /**
+     * The method will be call when the script fails
+     * @param ScriptRun $scriptRun
+     * @return void
+     */
+    public function fails(ScriptRun $scriptRun): void
+    {
+        //
+    }
 }

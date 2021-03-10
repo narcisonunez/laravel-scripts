@@ -33,14 +33,14 @@ abstract class Script
      * The method will be call when the script is run
      * @return void
      */
-    abstract protected function run() : void;
+    abstract protected function run(): void;
 
     /**
      * The method will be call when the script is run successfully
      * @param ScriptRun $scriptRun
      * @return void
      */
-    public function success(ScriptRun $scriptRun) : void
+    public function success(ScriptRun $scriptRun): void
     {
         //
     }
@@ -50,7 +50,7 @@ abstract class Script
      * @param ScriptRun $scriptRun
      * @return void
      */
-    public function fails(ScriptRun $scriptRun) : void
+    public function fails(ScriptRun $scriptRun): void
     {
         //
     }
@@ -66,8 +66,10 @@ abstract class Script
      */
     public function execute()
     {
-        if ($this->allowedRuns != config('scripts.unlimited_runs')
-            && ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns) {
+        if (
+            $this->allowedRuns != config('scripts.unlimited_runs')
+            && ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns
+        ) {
             $exception = new Exception('This script reached the maximum allowed runs.');
             $this->setScriptRunAttributes($exception);
             $this->scriptRun->save();

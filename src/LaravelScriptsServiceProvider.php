@@ -20,7 +20,6 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-scripts')
             ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_script_runs_table')
             ->hasCommands([
                 ScriptMakeCommand::class,
@@ -28,6 +27,14 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
                 ScriptRunCommand::class,
             ]);
 
-        $this->loadRoutesFrom("{$this->package->basePath('/../routes/')}web.php");
+        $this->loadViewsFrom($this->package->basePath('/../resources/views'), $this->package->shortPackageName());
+
+        if (method_exists($package, 'hasRoute')) {
+            $package->hasRoute('web');
+        } else {
+            $this->loadRoutesFrom("{$this->package->basePath('/../routes/')}web.php");
+        }
+
+
     }
 }

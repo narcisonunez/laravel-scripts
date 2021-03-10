@@ -3,6 +3,7 @@
 
 namespace Narcisonunez\LaravelScripts\Tests\Http\Controllers;
 
+use Illuminate\Support\Facades\Route;
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use Narcisonunez\LaravelScripts\Tests\TestCase;
@@ -14,8 +15,8 @@ class ScriptRunsControllerTest extends TestCase
     {
         /** @var ScriptRun $scriptRun */
         $scriptRun = ScriptRunFactory::new()->create();
-        $this->get('/scripts')
-            ->assertSeeText($scriptRun->script_name)
+        $response = $this->get('scripts');
+        $response->assertSeeText($scriptRun->script_name)
             ->assertSeeText($scriptRun->status)
             ->assertSeeText($scriptRun->description)
             ->assertOk();

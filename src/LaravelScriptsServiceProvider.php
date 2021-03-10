@@ -34,7 +34,5 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
         } else {
             $this->loadRoutesFrom("{$this->package->basePath('/../routes/')}web.php");
         }
-
-
     }
 }

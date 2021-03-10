@@ -3,7 +3,6 @@
 
 namespace Narcisonunez\LaravelScripts\Tests\Http\Controllers;
 
-use Illuminate\Support\Facades\Route;
 use Narcisonunez\LaravelScripts\Database\Factories\ScriptRunFactory;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use Narcisonunez\LaravelScripts\Tests\TestCase;

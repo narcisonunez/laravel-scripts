@@ -21,12 +21,13 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
             ->name('laravel-scripts')
             ->hasConfigFile()
             ->hasViews()
-            ->hasRoutes(['web'])
             ->hasMigration('create_script_runs_table')
             ->hasCommands([
                 ScriptMakeCommand::class,
                 ScriptHistoryCommand::class,
                 ScriptRunCommand::class,
             ]);
+
+        $this->loadRoutesFrom("{$this->package->basePath('/../routes/')}web.php");
     }
 }

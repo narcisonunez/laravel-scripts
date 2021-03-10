@@ -45,7 +45,7 @@ class ScriptRunCommandTest extends TestCase
     {
         $this->artisan('scripts:run', [
             'name' => 'VerifyScriptRunScript',
-            '--interactive' => true
+            '--interactive' => true,
         ])
             ->expectsQuestion('Name: ', 'John')
             ->assertExitCode(0);

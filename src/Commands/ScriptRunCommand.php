@@ -3,7 +3,6 @@
 namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Script;
 
 class ScriptRunCommand extends Command
@@ -42,9 +41,10 @@ class ScriptRunCommand extends Command
     {
         $dependencies = [];
         foreach ($script->dependenciesValues as $dependency) {
-            $name = ucwords(implode(' ',preg_split('/(?=[A-Z])/', $dependency)));
+            $name = ucwords(implode(' ', preg_split('/(?=[A-Z])/', $dependency)));
             $dependencies[$dependency] = $this->ask($name . ': ');
         }
+
         return $dependencies;
     }
 }

@@ -27,7 +27,7 @@ class LaravelScriptsServiceProvider extends PackageServiceProvider
                 ScriptRunCommand::class,
             ]);
 
-        $this->loadViewsFrom($this->package->basePath('/../resources/views'), $this->package->shortPackageName());
+        $this->loadViewsFrom($this->package->basePath('/../resources/views'), 'scripts');
 
         if (method_exists($package, 'hasRoute')) {
             $package->hasRoute('web');

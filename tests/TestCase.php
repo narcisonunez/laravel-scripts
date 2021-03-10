@@ -20,10 +20,12 @@ class TestCase extends Orchestra
         );
 
         config()->set('scripts.base_path', 'Narcisonunez\\LaravelScripts\\Scripts');
+
         try {
             File::delete(File::allFiles(app_path('Scripts')));
-        } catch (\Exception $exception){}
 
+        } catch (\Exception $exception) {
+        }
         Route::laravelScripts('scripts');
     }
 

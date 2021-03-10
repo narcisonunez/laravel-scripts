@@ -39,4 +39,15 @@ class ScriptRunCommandTest extends TestCase
             ->expectsOutput('Class not found: ' . config('scripts.base_path') . "\\ScriptNameThatDoesntExist")
             ->assertExitCode(0);
     }
+
+    /** @test */
+    public function it_should_ask_for_dependencies_when_running_in_interactive_mode()
+    {
+        $this->artisan('scripts:run', [
+            'name' => 'VerifyScriptRunScript',
+            '--interactive' => true
+        ])
+            ->expectsQuestion('Name: ', 'John')
+            ->assertExitCode(0);
+    }
 }

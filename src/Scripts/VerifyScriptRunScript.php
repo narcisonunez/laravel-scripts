@@ -15,6 +15,11 @@ class VerifyScriptRunScript extends Script
     public string $description = 'Get all the script runs';
 
     /**
+     * @var array
+     */
+    public array $dependenciesValues = ['name'];
+
+    /**
      * The method will be call when the script is run
      * @return void
      */

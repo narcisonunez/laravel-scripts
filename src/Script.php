@@ -5,6 +5,7 @@ namespace Narcisonunez\LaravelScripts;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
+use stdClass;
 
 abstract class Script
 {
@@ -28,6 +29,17 @@ abstract class Script
      * @var string
      */
     public string $description = '';
+
+    /**
+     * @var array
+     */
+    public array $dependenciesValues = [];
+
+    /**
+     * Values need it by the script
+     * @var stdClass
+     */
+    public stdClass $dependencies;
 
     /**
      * The method will be call when the script is run
@@ -58,6 +70,16 @@ abstract class Script
     public function __construct()
     {
         $this->allowedRuns = config('scripts.unlimited_runs');
+        $this->dependencies = new stdClass();
+    }
+
+    public function setDependencies(array $values): self
+    {
+        foreach ($values as $key => $value) {
+            $this->dependencies->{$key} = $value;
+        }
+
+        return $this;
     }
 
     /**

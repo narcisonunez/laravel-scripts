@@ -118,10 +118,12 @@ abstract class Script
         $this->scriptRun = new ScriptRun();
         $this->scriptRun->script_name = get_class($this);
         $this->scriptRun->description = $this->description;
+        $this->scriptRun->message = 'Succeeded';
         $this->scriptRun->succeeded(true);
         $this->scriptRun->executed_queries = DB::getQueryLog();
 
         if ($exception) {
+            $this->scriptRun->message = 'Failed';
             $this->scriptRun->failed(true);
             $this->scriptRun->message = $exception->getMessage();
         }

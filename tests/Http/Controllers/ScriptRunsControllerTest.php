@@ -20,4 +20,20 @@ class ScriptRunsControllerTest extends TestCase
             ->assertSeeText($scriptRun->description)
             ->assertOk();
     }
+
+    /** @test */
+    public function it_should_load_the_history_page_for_an_specific_script()
+    {
+        /** @var ScriptRun $verifyScript */
+        $verifyScript = ScriptRunFactory::new()->create();
+        /** @var ScriptRun $anotherRunScript */
+        $anotherRunScript = ScriptRunFactory::new()->create(['script_name' => 'AnotherRunRecord']);
+        $response = $this->call('GET', 'scripts', ['name' => 'VerifyScriptRunScript']);
+        $response->assertSeeText($verifyScript->script_name)
+            ->assertSeeText($verifyScript->status)
+            ->assertSeeText($verifyScript->description)
+            ->assertDontSeeText($anotherRunScript->script_name)
+            ->assertDontSeeText($anotherRunScript->description)
+            ->assertOk();
+    }
 }

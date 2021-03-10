@@ -3,6 +3,7 @@
 namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Narcisonunez\LaravelScripts\Models\ScriptRun;
 
 class ScriptMakeCommand extends GeneratorCommand
 {
@@ -24,6 +25,11 @@ class ScriptMakeCommand extends GeneratorCommand
     public function handle()
     {
         parent::handle();
+
+        if ($this->option('force')) {
+            $name = $this->getNameInput();
+            ScriptRun::where('script_name', 'LIKE', "%$name%")->update(['status' => 'overridden']);
+        }
     }
 
     protected function getStub()

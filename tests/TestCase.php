@@ -23,7 +23,7 @@ class TestCase extends Orchestra
         try {
             File::delete(File::allFiles(app_path('Scripts')));
         } catch (\Exception $exception){}
-        
+
         Route::laravelScripts('scripts');
     }
 

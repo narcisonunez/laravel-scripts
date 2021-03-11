@@ -3,7 +3,6 @@
 namespace Narcisonunez\LaravelScripts\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Script;
 use Narcisonunez\LaravelScripts\Services\ScriptDependencyInput;
 
@@ -20,6 +19,7 @@ class ScriptRunCommand extends Command
 
         if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
+
             return;
         }
 
@@ -73,6 +73,7 @@ class ScriptRunCommand extends Command
     private function askDependencyValue($name, $isOptional, $description = '') : mixed
     {
         $description = $description ?: '';
+
         return $this->ask($name . ": " . $description . ($isOptional ? ' (Optional)' : ''));
     }
 }

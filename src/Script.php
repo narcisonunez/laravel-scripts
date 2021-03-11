@@ -4,6 +4,7 @@ namespace Narcisonunez\LaravelScripts;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use stdClass;
 
@@ -73,9 +74,9 @@ abstract class Script
         $this->dependencies = new stdClass();
     }
 
-    public function setDependencies(array $values): self
+    public function setDependencies(array $dependencies): self
     {
-        foreach ($values as $key => $value) {
+        foreach ($dependencies as $key => $value) {
             $this->dependencies->{$key} = $value;
         }
 

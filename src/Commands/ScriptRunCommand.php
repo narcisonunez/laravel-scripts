@@ -42,9 +42,32 @@ class ScriptRunCommand extends Command
     {
         $dependencies = [];
         foreach ($script->dependenciesValues as $dependency) {
-            $name = ucwords(implode(' ',preg_split('/(?=[A-Z])/', $dependency)));
-            $dependencies[$dependency] = $this->ask($name . ': ');
+            $isOptional = Str::endsWith($dependency, '?');
+            $value = $this->askDependencyValue($dependency, $isOptional);
+            $dependency = $this->getDependencyKey($dependency);
+            $dependencies[$dependency] = $value;
+
+            if (! $isOptional && empty($value)) {
+                throw new \Exception("$dependency is a required dependency.");
+            }
         }
         return $dependencies;
+    }
+
+    private function getDependencyLabel($value) : string
+    {
+        $label = Str::title(implode(' ',preg_split('/(?=[A-Z])/', $value)));
+        return Str::replaceLast('?', '', $label);
+    }
+
+    private function getDependencyKey($dependency) : string
+    {
+        return Str::replaceLast('?', '', $dependency);
+    }
+
+    private function askDependencyValue($dependency, $isOptional)
+    {
+        $name = $this->getDependencyLabel($dependency);
+        return $this->ask($name . ': ' . ($isOptional ? ' (Optional)' : ''));
     }
 }

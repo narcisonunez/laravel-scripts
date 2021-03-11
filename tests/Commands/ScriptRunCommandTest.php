@@ -50,4 +50,17 @@ class ScriptRunCommandTest extends TestCase
             ->expectsQuestion('Name: ', 'John')
             ->assertExitCode(0);
     }
+
+    /** @test */
+    public function it_should_fail_if_required_dependencies_are_falsy_values()
+    {
+        $this->artisan('scripts:run', [
+            'name' => 'VerifyScriptRunScript',
+            '--interactive' => true
+        ])
+            ->expectsQuestion('Name: ', '')
+            ->expectsOutput('There was an error with your script.')
+            ->expectsOutput('Error: name is a required dependency.')
+            ->assertExitCode(0);
+    }
 }

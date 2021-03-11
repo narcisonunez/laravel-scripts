@@ -95,7 +95,16 @@
                 </svg>
             </button>
             <div class="flex-1 px-4 flex justify-between">
-                <div class="flex-1 flex"></div>
+                <div class="flex-1 flex">
+                    <div class="flex-1 flex">
+                        <select name="script_name" id="script_name" class="form-select m-1 block rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" style="width: 300px; border: 1px solid #e8e8e8;">
+                            @foreach($scripts as $script)
+                                <option value="{{$script['name']}}">{{$script['name']}}</option>
+                            @endforeach
+                        </select>
+                        <button id="run_script" class="px-8 my-1 rounded-r-lg bg-green-400  text-gray-800 font-bold p-4 uppercase border-green-500 border-t border-b border-r">Run</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -104,5 +113,18 @@
         </main>
     </div>
 </div>
+
+    <script type="text/javascript">
+        let el = document.getElementById('run_script');
+        el.addEventListener('click', function(event){
+            event.preventDefault();
+            console.log(document.getElementById('script_name').value);
+            // TODO send the script to the backend
+            // TODO   get the dependencies
+            // TODO  render a modal with the dependencies
+            // TODO  submit the form to the backend
+            // TODO  THIS COMPLETE V1
+        });
+    </script>
 </body>
 </html>

@@ -60,7 +60,7 @@ class ScriptDependencyInput
      */
     private function setValues($name = '', $description = '')
     {
-        $this->name = $name;
+        $this->name = Str::replaceLast('?', '', $name);
         $this->description = $description;
         $this->isOptional = Str::endsWith($name, '?');
     }

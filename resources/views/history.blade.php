@@ -33,7 +33,9 @@
                                 @foreach($scriptRuns as $scriptRun)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ $scriptRun->id }}
+                                        <a href="/{{ request()->path() . '/run/' . $scriptRun->id}}" class="text-indigo-600 hover:text-indigo-900">
+                                            {{ $scriptRun->id }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $scriptRun->script_name }}
@@ -54,7 +56,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                        <a href="/{{ request()->path() . '/run/' . $scriptRun->id}}" class="text-indigo-600 hover:text-indigo-900">View</a>
                                     </td>
                                 </tr>
                                 @endforeach

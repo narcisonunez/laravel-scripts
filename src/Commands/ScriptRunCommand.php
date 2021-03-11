@@ -19,6 +19,7 @@ class ScriptRunCommand extends Command
 
         if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
+
             return;
         }
 
@@ -65,7 +66,8 @@ class ScriptRunCommand extends Command
      */
     private function getDependencyLabel($value) : string
     {
-        $label = Str::title(implode(' ',preg_split('/(?=[A-Z])/', $value)));
+        $label = Str::title(implode(' ', preg_split('/(?=[A-Z])/', $value)));
+
         return Str::replaceLast('?', '', $label);
     }
 
@@ -86,6 +88,7 @@ class ScriptRunCommand extends Command
     private function askDependencyValue($dependency, $isOptional)
     {
         $name = $this->getDependencyLabel($dependency);
+
         return $this->ask($name . ': ' . ($isOptional ? ' (Optional)' : ''));
     }
 }

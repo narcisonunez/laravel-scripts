@@ -47,7 +47,7 @@ class ScriptRunCommandTest extends TestCase
             'name' => 'VerifyScriptRunScript',
             '--interactive' => true,
         ])
-            ->expectsQuestion('Name: ', 'John')
+            ->expectsQuestion('Name: Employee Name', 'John')
             ->assertExitCode(0);
     }
 
@@ -58,9 +58,9 @@ class ScriptRunCommandTest extends TestCase
             'name' => 'VerifyScriptRunScript',
             '--interactive' => true
         ])
-            ->expectsQuestion('Name: ', '')
+            ->expectsQuestion('Name: Employee Name', '')
             ->expectsOutput('There was an error with your script.')
-            ->expectsOutput('Error: name is a required dependency.')
+            ->expectsOutput('Error: Name is a required dependency.')
             ->assertExitCode(0);
     }
 }

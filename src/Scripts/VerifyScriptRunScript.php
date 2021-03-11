@@ -17,7 +17,7 @@ class VerifyScriptRunScript extends Script
     /**
      * @var array
      */
-    public array $dependenciesValues = ['name'];
+    public array $dependenciesValues = ['name : Employee Name'];
 
     /**
      * The method will be call when the script is run

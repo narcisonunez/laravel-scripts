@@ -5,6 +5,7 @@ namespace Narcisonunez\LaravelScripts\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Script;
+use Narcisonunez\LaravelScripts\Services\ScriptDependencyInput;
 
 class ScriptRunCommand extends Command
 {
@@ -46,13 +47,17 @@ class ScriptRunCommand extends Command
     {
         $dependencies = [];
         foreach ($script->dependenciesValues as $dependency) {
-            $isOptional = Str::endsWith($dependency, '?');
-            $value = $this->askDependencyValue($dependency, $isOptional);
-            $dependency = $this->getDependencyKey($dependency);
-            $dependencies[$dependency] = $value;
+            $dependencyInput = ScriptDependencyInput::for($dependency);
 
-            if (! $isOptional && empty($value)) {
-                throw new \Exception("$dependency is a required dependency.");
+            $value = $this->askDependencyValue(
+                $dependencyInput->label(),
+                $dependencyInput->isOptional,
+                $dependencyInput->description
+            );
+
+            $dependencies[$dependencyInput->key()] = $value;
+            if (! $dependencyInput->isOptional && empty($value)) {
+                throw new \Exception($dependencyInput->label() . " is a required dependency.");
             }
         }
 
@@ -60,32 +65,14 @@ class ScriptRunCommand extends Command
     }
 
     /**
-     * @param $value
-     * @return string
-     */
-    private function getDependencyLabel($value) : string
-    {
-        $label = Str::title(implode(' ',preg_split('/(?=[A-Z])/', $value)));
-        return Str::replaceLast('?', '', $label);
-    }
-
-    /**
-     * @param $dependency
-     * @return string
-     */
-    private function getDependencyKey($dependency) : string
-    {
-        return Str::replaceLast('?', '', $dependency);
-    }
-
-    /**
-     * @param $dependency
+     * @param $name
      * @param $isOptional
+     * @param $description
      * @return mixed
      */
-    private function askDependencyValue($dependency, $isOptional)
+    private function askDependencyValue($name, $isOptional, $description = '') : mixed
     {
-        $name = $this->getDependencyLabel($dependency);
-        return $this->ask($name . ': ' . ($isOptional ? ' (Optional)' : ''));
+        $description = $description ?: '';
+        return $this->ask($name . ": " . $description . ($isOptional ? ' (Optional)' : ''));
     }
 }

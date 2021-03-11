@@ -19,7 +19,6 @@ class ScriptRunCommand extends Command
 
         if ($scriptName && ! class_exists(config('scripts.base_path') . "\\$scriptName")) {
             $this->error('Class not found: ' . config('scripts.base_path') . "\\" . $scriptName);
-
             return;
         }
 
@@ -38,6 +37,11 @@ class ScriptRunCommand extends Command
         }
     }
 
+    /**
+     * @param Script $script
+     * @return array
+     * @throws \Exception
+     */
     private function getInteractiveValues(Script $script): array
     {
         $dependencies = [];
@@ -51,20 +55,34 @@ class ScriptRunCommand extends Command
                 throw new \Exception("$dependency is a required dependency.");
             }
         }
+
         return $dependencies;
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function getDependencyLabel($value) : string
     {
         $label = Str::title(implode(' ',preg_split('/(?=[A-Z])/', $value)));
         return Str::replaceLast('?', '', $label);
     }
 
+    /**
+     * @param $dependency
+     * @return string
+     */
     private function getDependencyKey($dependency) : string
     {
         return Str::replaceLast('?', '', $dependency);
     }
 
+    /**
+     * @param $dependency
+     * @param $isOptional
+     * @return mixed
+     */
     private function askDependencyValue($dependency, $isOptional)
     {
         $name = $this->getDependencyLabel($dependency);

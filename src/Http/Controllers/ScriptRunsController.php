@@ -38,6 +38,7 @@ class ScriptRunsController
     {
         $scriptRun = ScriptRun::find($id);
         $scripts = $this->getScripts();
+
         return view('scripts::show', compact('scripts', 'scriptRun'));
     }
 

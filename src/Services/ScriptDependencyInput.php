@@ -43,11 +43,13 @@ class ScriptDependencyInput
 
         if (count($data) === 1) {
             $this->setValues(trim($data[0]));
+
             return;
         }
 
         if (count($data) === 2) {
             $this->setValues(trim($data[0]), trim($data[1]));
+
             return;
         }
 
@@ -79,7 +81,8 @@ class ScriptDependencyInput
      */
     public function label() : string
     {
-        $label = Str::title(implode(' ',preg_split('/(?=[A-Z])/', $this->name)));
+        $label = Str::title(implode(' ', preg_split('/(?=[A-Z])/', $this->name)));
+
         return Str::replaceLast('?', '', $label);
     }
 }

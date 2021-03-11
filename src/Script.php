@@ -4,7 +4,6 @@ namespace Narcisonunez\LaravelScripts;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
 use stdClass;
 

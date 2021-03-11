@@ -91,7 +91,7 @@ abstract class Script
     {
         if (
             $this->allowedRuns != config('scripts.unlimited_runs')
-            && ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns
+            && $this->canRun()
         ) {
             $exception = new Exception('This script reached the maximum allowed runs.');
             $this->setScriptRunAttributes($exception);
@@ -144,11 +144,20 @@ abstract class Script
         $this->scriptRun->message = 'Succeeded';
         $this->scriptRun->succeeded(true);
         $this->scriptRun->executed_queries = DB::getQueryLog();
+        $this->scriptRun->dependencies = $this->dependencies;
 
         if ($exception) {
             $this->scriptRun->message = 'Failed';
             $this->scriptRun->failed(true);
             $this->scriptRun->message = $exception->getMessage();
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function canRun() : bool
+    {
+        return ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns;
     }
 }

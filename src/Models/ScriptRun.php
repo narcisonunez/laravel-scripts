@@ -36,6 +36,23 @@ class ScriptRun extends Model
     }
 
     /**
+     * Get dependencies attribute
+     */
+    public function getDependenciesAttribute()
+    {
+        return json_decode($this->attributes['dependencies']);
+    }
+
+    /**
+     * Set dependencies attribute
+     * @param $value
+     */
+    public function setDependenciesAttribute($value)
+    {
+        $this->attributes['dependencies'] = json_encode($value);
+    }
+
+    /**
      * @param bool|null $status
      */
     public function succeeded(bool $status = null): bool

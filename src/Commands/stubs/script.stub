@@ -7,11 +7,16 @@ use Narcisonunez\LaravelScripts\Models\ScriptRun;
 
 class {{ class }} extends Script
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Script Description
      * @var string
      */
-    public string $description = ''; // TODO update this line
+    public string $description = '';
 
     /**
      * The method will be call when the script is run

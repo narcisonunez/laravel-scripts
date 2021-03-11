@@ -48,9 +48,9 @@ class ScriptRunsController
     {
         $scriptName = $request->get('script');
         $script = config('scripts.base_path') . "\\$scriptName";
-        if (!class_exists($script)) {
+        if (! class_exists($script)) {
             return response()->json([
-                'error' => 'Class Not Found'
+                'error' => 'Class Not Found',
             ]);
         }
 
@@ -69,7 +69,7 @@ class ScriptRunsController
         }
 
         return redirect()->route("scripts::show", [
-            'id' => ScriptRun::where('script_name', 'LIKE', "%$scriptName%")->get()->reverse()->first()
+            'id' => ScriptRun::where('script_name', 'LIKE', "%$scriptName%")->get()->reverse()->first(),
         ]);
     }
 
@@ -86,9 +86,9 @@ class ScriptRunsController
     public function dependencies($id)
     {
         $script = config('scripts.base_path') . "\\$id";
-        if (!class_exists($script)) {
+        if (! class_exists($script)) {
             return response()->json([
-                'error' => 'Class Not Found'
+                'error' => 'Class Not Found',
             ]);
         }
 
@@ -103,8 +103,9 @@ class ScriptRunsController
             $dependencies[$dependencyInput->key()]['description'] = $dependencyInput->description;
             $dependencies[$dependencyInput->key()]['is_optional'] = $dependencyInput->isOptional;
         }
+
         return response()->json([
-            'dependencies' => $dependencies
+            'dependencies' => $dependencies,
         ]);
     }
 

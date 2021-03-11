@@ -123,8 +123,17 @@
         </main>
     </div>
 </div>
+    @if(session()->has('scripts::cannot_run'))
+        <input type="hidden" id="script_cannot_run" value="{{ session()->get('scripts::cannot_run') }}">
+    @endif
     @include('scripts::_modal')
     <script type="text/javascript">
+
+        let canNotRun = document.getElementById('script_cannot_run');
+        if (canNotRun) {
+            alert(canNotRun.value);
+        }
+
         let el = document.getElementById('run_script');
         el.addEventListener('click', function(event){
             event.preventDefault();

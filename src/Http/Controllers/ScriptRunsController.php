@@ -14,9 +14,9 @@ class ScriptRunsController
 {
     /**
      * @param Request $request
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
-    public function index(Request $request) : View
+    public function index(Request $request)
     {
         $scripts = $this->getScripts();
         $scriptRunsQuery = ScriptRun::orderByDesc('id');
@@ -34,8 +34,9 @@ class ScriptRunsController
      * @param ScriptRun $scriptRun
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
-    public function show(ScriptRun $scriptRun)
+    public function show($id)
     {
+        $scriptRun = ScriptRun::find($id);
         $scripts = $this->getScripts();
         return view('scripts::show', compact('scripts', 'scriptRun'));
     }

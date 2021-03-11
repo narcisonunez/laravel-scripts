@@ -80,4 +80,20 @@ class ScriptRun extends Model
 
         return ! $this->succeeded();
     }
+
+    /**
+     * @return string
+     */
+    public function statusClasses() : string
+    {
+        if ($this->succeeded()) {
+            return 'bg-green-100 text-green-800';
+        } elseif ($this->failed()) {
+            return 'bg-red-100 text-red-800';
+        } elseif($this->status === 'overridden'){
+            return 'bg-yellow-100 text-yellow-800';
+        }
+
+        return '';
+    }
 }

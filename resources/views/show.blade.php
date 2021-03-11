@@ -57,14 +57,7 @@
                                                 Status
                                             </dt>
                                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                @if($scriptRun->status === 'succeeded')
-                                                    @php($additionalClasses = 'bg-green-100 text-green-800')
-                                                @elseif($scriptRun->status === 'failed')
-                                                    @php($additionalClasses = 'bg-red-100 text-red-800')
-                                                @elseif($scriptRun->status === 'overridden')
-                                                    @php($additionalClasses = 'bg-yellow-100 text-yellow-800')
-                                                @endif
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $additionalClasses }} capitalize">
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $scriptRun->statusClasses() }} capitalize">
                                                   {{ $scriptRun->status }}
                                                 </span>
                                             </dd>
@@ -82,7 +75,7 @@
                                                 Runner IP
                                             </dt>
                                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                {{ $scriptRun->runner_id }}
+                                                {{ $scriptRun->runner_ip }}
                                             </dd>
                                         </div>
                                         <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -90,7 +83,8 @@
                                                 Dependencies
                                             </dt>
                                             <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2">
-                                                @foreach(get_object_vars($scriptRun->dependencies) as $key => $value)
+
+                                                @foreach((array) $scriptRun->dependencies as $key => $value)
                                                 <p class="bg-gray-800 rounded text-yellow-500 p-2 my-1">{{ $key }} => {{ $value }}</p>
                                                 @endforeach
                                             </dd>

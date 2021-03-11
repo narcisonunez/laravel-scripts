@@ -44,14 +44,7 @@
                                         {{ $scriptRun->description }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        @if($scriptRun->status === 'succeeded')
-                                            @php($additionalClasses = 'bg-green-100 text-green-800')
-                                        @elseif($scriptRun->status === 'failed')
-                                            @php($additionalClasses = 'bg-red-100 text-red-800')
-                                        @elseif($scriptRun->status === 'overridden')
-                                            @php($additionalClasses = 'bg-yellow-100 text-yellow-800')
-                                        @endif
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $additionalClasses }} capitalize">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $scriptRun->statusClasses() }} capitalize">
                                           {{ $scriptRun->status }}
                                         </span>
                                     </td>

@@ -18,6 +18,7 @@ class ScriptRunFactory extends Factory
             'status' => 'succeeded',
             'message' => '',
             'runner_ip' => $this->faker->ipv4,
+            'dependencies' => new \stdClass(),
             'executed_queries' => []
         ];
     }

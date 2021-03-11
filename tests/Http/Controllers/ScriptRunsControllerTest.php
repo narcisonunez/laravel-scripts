@@ -36,4 +36,16 @@ class ScriptRunsControllerTest extends TestCase
             ->assertDontSeeText($anotherRunScript->description)
             ->assertOk();
     }
+
+    /** @test */
+    public function it_should_load_the_detail_page_for_an_specific_script()
+    {
+        /** @var ScriptRun $verifyScript */
+        $verifyScript = ScriptRunFactory::new()->create();
+        $response = $this->get("scripts/run/" . $verifyScript->id);
+        $response->assertSeeText($verifyScript->script_name)
+            ->assertSeeText($verifyScript->status)
+            ->assertSeeText($verifyScript->description)
+            ->assertOk();
+    }
 }

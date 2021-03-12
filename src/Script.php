@@ -17,7 +17,7 @@ abstract class Script
     /**
      * @var int
      */
-    public int $allowedRuns;
+    public int $allowedRuns = 0;
 
     /**
      * @var bool
@@ -69,7 +69,6 @@ abstract class Script
 
     public function __construct()
     {
-        $this->allowedRuns = config('scripts.unlimited_runs');
         $this->dependencies = new stdClass();
     }
 
@@ -89,8 +88,8 @@ abstract class Script
     public function execute()
     {
         if (
-            $this->allowedRuns != config('scripts.unlimited_runs')
-            && $this->canRun()
+            $this->allowedRuns !== 0
+            && !$this->canRun()
         ) {
             $exception = new Exception('This script reached the maximum allowed runs.');
             $this->setScriptRunAttributes($exception);
@@ -155,8 +154,10 @@ abstract class Script
     /**
      * @return bool
      */
-    public function canRun() : bool
+    public function canRun(): bool
     {
-        return ScriptRun::where('script_name', get_class($this))->count() >= $this->allowedRuns;
+        if ($this->allowedRuns === 0) return true;
+
+        return ScriptRun::where('script_name', get_class($this))->count() <= $this->allowedRuns;
     }
 }

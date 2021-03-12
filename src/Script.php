@@ -89,7 +89,7 @@ abstract class Script
     {
         if (
             $this->allowedRuns !== 0
-            && !$this->canRun()
+            && ! $this->canRun()
         ) {
             $exception = new Exception('This script reached the maximum allowed runs.');
             $this->setScriptRunAttributes($exception);
@@ -156,7 +156,9 @@ abstract class Script
      */
     public function canRun(): bool
     {
-        if ($this->allowedRuns === 0) return true;
+        if ($this->allowedRuns === 0) {
+            return true;
+        }
 
         return ScriptRun::where('script_name', get_class($this))->count() <= $this->allowedRuns;
     }

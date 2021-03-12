@@ -58,6 +58,7 @@ class ScriptRunsController
         $script = new $script();
         if (! $script->canRun()) {
             session()->flash('scripts::cannot_run', 'This script reached the maximum allowed runs.');
+
             return redirect()->route("scripts::history");
         }
 

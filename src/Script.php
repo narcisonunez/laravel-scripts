@@ -17,7 +17,7 @@ abstract class Script
     /**
      * @var int
      */
-    public int $allowedRuns = 0;
+    public int $allowedRuns = 0; // 0 = Unlimited
 
     /**
      * @var bool
@@ -158,6 +158,6 @@ abstract class Script
     {
         if ($this->allowedRuns === 0) return true;
 
-        return ScriptRun::where('script_name', get_class($this))->count() <= $this->allowedRuns;
+        return ScriptRun::where('script_name', get_class($this))->count() < $this->allowedRuns;
     }
 }

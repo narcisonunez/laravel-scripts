@@ -29,10 +29,7 @@
         "psr-4": {
             "Narcisonunez\\LaravelScripts\\": "src",
             "Narcisonunez\\LaravelScripts\\Database\\Factories\\": "database/factories"
-        },
-        "files": [
-            "src/Helpers/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

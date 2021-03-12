@@ -81,7 +81,7 @@ class ScriptDependencyInput
      */
     public function label() : string
     {
-        $label = cameltotitle($this->name);
+        $label = Str::title(implode(' ', preg_split('/(?=[A-Z])/', $this->name)));
 
         return Str::replaceLast('?', '', $label);
     }

@@ -3,22 +3,22 @@
 
 namespace Narcisonunez\LaravelScripts\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Narcisonunez\LaravelScripts\Models\ScriptRun;
-use Narcisonunez\LaravelScripts\Script;
-use Narcisonunez\LaravelScripts\Services\ScriptDependencyInput;
 
 class ScriptRunsController
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory|View|Application
     {
         $scripts = $this->getScripts();
         $scriptRunsQuery = ScriptRun::orderByDesc('id');
@@ -33,10 +33,10 @@ class ScriptRunsController
     }
 
     /**
-     * @param ScriptRun $scriptRun
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @param $id
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show($id): Factory|View|Application
     {
         $scriptRun = ScriptRun::find($id);
         $scripts = $this->getScripts();
@@ -44,73 +44,9 @@ class ScriptRunsController
         return view('scripts::show', compact('scripts', 'scriptRun'));
     }
 
-    public function run(Request $request)
-    {
-        $scriptName = $request->get('script');
-        $script = config('scripts.base_path') . "\\$scriptName";
-        if (! class_exists($script)) {
-            return response()->json([
-                'error' => 'Class Not Found',
-            ]);
-        }
-
-        /** @var Script $script */
-        $script = new $script();
-        if (! $script->canRun()) {
-            session()->flash('scripts::cannot_run', 'This script reached the maximum allowed runs.');
-
-            return redirect()->route("scripts::history");
-        }
-
-        try {
-            $script->setDependencies(
-                $this->getDependencies($request->except(['_token', 'script']))
-            );
-            $script->execute();
-        } catch (\Exception $exception) {
-        }
-
-        return redirect()->route("scripts::show", [
-            'id' => ScriptRun::where('script_name', 'LIKE', "%$scriptName%")->get()->reverse()->first(),
-        ]);
-    }
-
-    public function getDependencies($inputs)
-    {
-        $dependencies = [];
-        foreach ($inputs as $key => $value) {
-            $dependencies[$key] = $value;
-        }
-
-        return $dependencies;
-    }
-
-    public function dependencies($id)
-    {
-        $script = config('scripts.base_path') . "\\$id";
-        if (! class_exists($script)) {
-            return response()->json([
-                'error' => 'Class Not Found',
-            ]);
-        }
-
-        /** @var Script $script */
-        $script = new $script();
-        $dependencies = [];
-
-        foreach ($script->dependenciesValues as $dependency) {
-            $dependencyInput = ScriptDependencyInput::for($dependency);
-            $dependencies[$dependencyInput->key()]['name'] = $dependencyInput->name;
-            $dependencies[$dependencyInput->key()]['label'] = $dependencyInput->label();
-            $dependencies[$dependencyInput->key()]['description'] = $dependencyInput->description;
-            $dependencies[$dependencyInput->key()]['is_optional'] = $dependencyInput->isOptional;
-        }
-
-        return response()->json([
-            'dependencies' => $dependencies,
-        ]);
-    }
-
+    /**
+     * @return Collection
+     */
     private function getScripts() : Collection
     {
         $scripts = collect();

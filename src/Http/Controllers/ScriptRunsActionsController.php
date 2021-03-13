@@ -16,7 +16,7 @@ class ScriptRunsActionsController
      * @param Request $request
      * @return JsonResponse|RedirectResponse
      */
-    public function run(Request $request): JsonResponse|RedirectResponse
+    public function run(Request $request): JsonResponse | RedirectResponse
     {
         $scriptName = $request->get('script');
         $script = "App\\Scripts\\$scriptName";
@@ -30,6 +30,7 @@ class ScriptRunsActionsController
         $script = new $script();
         if (! $script->canRun()) {
             session()->flash('scripts::cannot_run', 'This script reached the maximum allowed runs.');
+
             return redirect()->route("scripts::history");
         }
 

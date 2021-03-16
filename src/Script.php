@@ -42,13 +42,13 @@ abstract class Script
     public stdClass $dependencies;
 
     /**
-     * The method will be call when the script is run
+     * The method will be called when the script is run
      * @return void
      */
     abstract protected function run(): void;
 
     /**
-     * The method will be call when the script is run successfully
+     * The method will be called when the script is run successfully
      * @param ScriptRun $scriptRun
      * @return void
      */
@@ -58,7 +58,7 @@ abstract class Script
     }
 
     /**
-     * The method will be call when the script fails
+     * The method will be called when the script fails
      * @param ScriptRun $scriptRun
      * @return void
      */

@@ -19,7 +19,7 @@ class {{ class }} extends Script
     public string $description = '';
 
     /**
-     * The method will be call when the script is run
+     * The method will be called when the script is run
      * @return void
      */
     protected function run() : void
@@ -28,7 +28,7 @@ class {{ class }} extends Script
     }
 
     /**
-     * The method will be call when the script is run successfully
+     * The method will be called when the script is run successfully
      * @param ScriptRun $scriptRun
      * @return void
      */

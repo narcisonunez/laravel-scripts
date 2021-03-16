@@ -18,7 +18,7 @@ class ScriptRunsController
      * @param Request $request
      * @return Application|Factory|View
      */
-    public function index(Request $request): Factory|View|Application
+    public function index(Request $request): Factory | View | Application
     {
         $scripts = $this->getScripts();
         $scriptRunsQuery = ScriptRun::orderByDesc('id');
@@ -36,7 +36,7 @@ class ScriptRunsController
      * @param $id
      * @return Application|Factory|View
      */
-    public function show($id): Factory|View|Application
+    public function show($id): Factory | View | Application
     {
         $scriptRun = ScriptRun::find($id);
         $scripts = $this->getScripts();

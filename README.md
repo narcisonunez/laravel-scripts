@@ -21,7 +21,7 @@ composer require narcisonunez/laravel-scripts
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Narcisonunez\LaravelScripts\LaravelScriptsServiceProvider" --tag="laravel-scripts-migrations"
+php artisan vendor:publish --provider="Narcisonunez\LaravelScripts\LaravelScriptsServiceProvider" --tag="scripts-migrations"
 php artisan migrate
 ```
 
